@@ -1,0 +1,15 @@
+
+<div *ngIf="!basketsReceived">
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
+</div>
+<div *ngIf="basketsReceived">
+  <ion-reorder-group #reorder [disabled]="!reorderList">
+    <ion-item *ngFor="let basket of baskets" >
+      <app-basket
+        [basket]="basket">
+      </app-basket>
+      <ion-reorder slot="end"></ion-reorder>
+    </ion-item>
+  </ion-reorder-group>
+</div>

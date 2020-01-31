@@ -1,0 +1,9 @@
+<ion-card>
+  <ion-item>
+    <ion-label position="stacked">Basket Name</ion-label>
+    <ion-input name="basketName" [(ngModel)]="basketName" ngDefaultControl></ion-input>
+  </ion-item>
+  <div class="ion-padding">
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="createBasket()">Create basket</ion-button>
+  </div>
+</ion-card>

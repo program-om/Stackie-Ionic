@@ -1,0 +1,8 @@
+<ion-item>
+  <ion-label [routerLink]="'question/'+question.question_id">
+    {{ question.title }}
+  </ion-label>
+  <ion-checkbox *ngIf="showSelectBox" color="danger"
+    (click)="selectQuestion(question.question_id)"></ion-checkbox>
+  <ion-reorder slot="end"></ion-reorder>
+</ion-item>

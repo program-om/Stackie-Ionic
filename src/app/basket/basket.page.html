@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>basket</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button *ngIf="!selectBox" (click)="showSelectBox()">
+          Modify
+      </ion-button>
+      <ion-button *ngIf="selectBox" (click)="hideSelectBox()">
+          Cancel
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!questionsReceived">
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
+  </div>
+  <div *ngIf="questionsReceived">
+    <ion-card>
+      <ion-header class="ion-padding">
+        <ion-button slot="icon-only" shape="round" fill="outline" (click)="presentPopover($event)" >
+          <ion-icon button size="large" name="more"></ion-icon>
+        </ion-button>
+        <ion-card-title>
+          {{ basket.name }}
+        </ion-card-title>
+        <ion-card-subtitle> {{ basketQuestions.length }} questions </ion-card-subtitle>
+      </ion-header>
+    </ion-card>
+    <ion-button *ngIf="selectBox && selectedQuestions.length > 0"
+      expand="block" (click)="deleteQuestions()"
+      color="danger"> 
+      Delete Questions 
+    </ion-button>
+    <app-questions-list [questions]="basketQuestions"></app-questions-list>
+    <div *ngIf="basketQuestions.length === 0">
+      <ion-card>
+        <ion-card-title>
+          No questions in this basket!
+        </ion-card-title>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

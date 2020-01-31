@@ -1,0 +1,70 @@
+.custom-control::before,
+.custom-control::after {
+  top: 0.8rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.checkbox-xl::before,
+.checkbox-xl::after {
+  top: 1.2rem;
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+.checkbox-xl {
+  padding-top: 23px;
+  padding-left: 10px;
+}
+
+.answer {
+  width: 90%;
+}
+
+.custom-control-lg {
+  margin-left: 0.5rem !important;
+
+  font-size: 2.5em;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.checkbox-3 {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.noDecoration {
+  text-decoration: none;
+}
+
+/*Hide input increase and decrease arrows*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+#checked-answer {
+  color: green;
+  font-size: 64px;
+}

@@ -1,0 +1,18 @@
+<ion-card>
+  <ion-card-header>
+    <ion-toggle *ngIf="!normalAnswer" color="primary"
+      (click)="selectAnswer(answer.answer_id)">
+    </ion-toggle>
+    <hr>
+    <ion-chip color="success" *ngIf="answer.is_accepted">
+      <ion-icon id="checked-answer" name="checkmark"></ion-icon>
+    </ion-chip>
+    
+    <ion-card-subtitle class="float-right">
+      <ion-badge color="primary">{{ answer.score }}</ion-badge>
+    </ion-card-subtitle>
+  </ion-card-header>
+  <br>
+  <ion-card-content [innerHTML]="answer.body">
+  </ion-card-content>
+</ion-card>

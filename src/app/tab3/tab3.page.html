@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Three
+      Profile
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-card>
+    <div *ngIf="!loggedIn">
+      <div class="ion-padding">
+        <ion-button expand="block" type="submit" class="ion-no-margin" routerLink="/register">Sign up</ion-button>
+        <br>
+        <ion-button expand="block" type="submit" class="ion-no-margin" routerLink="/login">Log in</ion-button>
+      </div>
+    </div>
+    <ion-list *ngIf="userInfo">
+      <ion-item>
+        Email: {{ userInfo.email }}
+      </ion-item>
+      <ion-item>
+        Username: {{ userInfo.user_name }}
+      </ion-item>
+      <ion-item>
+        you have {{ userInfo.baskets_num }} baskets
+      </ion-item>
+    </ion-list>
+    <div *ngIf="loggedIn">
+      <div class="ion-padding">
+        <ion-button color="danger" expand="block" type="submit" class="ion-no-margin" (click)="logOut()">Log out</ion-button>
+      </div>
+    </div>
+    
+  </ion-card>
+</ion-content>

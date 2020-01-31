@@ -1,0 +1,48 @@
+<ion-card>
+  <ion-item>
+    <ion-label position="stacked">Question ID</ion-label>
+    <ion-input type="number" min="0" name="questionId" [(ngModel)]="questionId" ngDefaultControl></ion-input>
+  </ion-item>
+  <div class="ion-padding">
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="searchQuestion()">
+      Search Question
+    </ion-button>
+  </div>
+</ion-card>
+
+<div *ngIf="searchSubmitted && !receivedResponse">
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar>
+</div>
+
+<app-question *ngIf="receivedQuestion" 
+  [question]="question">
+</app-question>
+
+<app-answers-list *ngIf="loggedIn && receivedQuestion"
+  [answers]="answers"
+  [normalAnswers]="false">
+</app-answers-list>
+
+<app-answers-list *ngIf="!loggedIn && receivedQuestion"
+  [answers]="answers"
+  [normalAnswers]="true">
+</app-answers-list>
+<!--
+  <ion-card *ngFor="let answer of answers">
+  <ion-card-header>
+    <ion-toggle color="primary"></ion-toggle>
+    <hr>
+    <ion-chip color="success" *ngIf="answer.is_accepted">
+      <ion-icon id="checked-answer" name="checkmark"></ion-icon>
+    </ion-chip>
+    
+    <ion-card-subtitle class="float-right">
+      <ion-badge color="primary">{{ answer.score }}</ion-badge>
+    </ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content [innerHTML]="answer.body">
+  </ion-card-content>
+</ion-card>
+-->

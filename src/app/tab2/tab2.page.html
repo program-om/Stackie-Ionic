@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Search
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <div *ngIf="receivedQuestion && loggedIn">
+    <ion-card class="ion-padding">
+      <ion-item >
+        <ion-label>Basket</ion-label>
+        <ion-select interface="popover" [(ngModel)]="basketId" ngDefaultControl>
+          <ion-select-option *ngFor="let basket of baskets" 
+            [value]="basket._id">
+            {{basket.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <br>
+      <ion-button (click)="saveQuestion()">Save Question</ion-button>
+    </ion-card>
+  </div>
+  <app-search-question
+    (newSearch)="onNewSearch($event)"
+    (gotTheQuestion)="receiveQuestionSig($event)">
+  </app-search-question>
+</ion-content>
