@@ -4,6 +4,9 @@ import { ToastController } from '@ionic/angular';
 import { BasketService } from '../_services/basket.service';
 import { Router } from '@angular/router';
 import { LoggedInService } from '../_services/logged-in.service';
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-tab2',
@@ -31,10 +34,19 @@ export class Tab2Page implements OnInit {
       console.log(this.answersIds);
     });
     this.loggedInService.loggedIn
-    .subscribe( val => {
+    .subscribe( async val => {
       this.loggedIn = val;
       if (this.loggedIn) {
-        this.getBaskets();
+        // if baskets exist in Storage
+        //    get baskets from Storage
+        const ret = await Storage.get({key: 'baskets'});
+        if (ret.value) {
+          this.baskets = JSON.parse(ret.value);
+        } else {
+        // if baskets do not exist in Storage
+        //    fetch baskets list - http call
+          this.getBaskets();
+        }
       }
     });
   }
@@ -78,8 +90,12 @@ export class Tab2Page implements OnInit {
 
   getBaskets() {
     this.basketService.allBaskets()
-    .subscribe( res => {
+    .subscribe( async res => {
       this.baskets = res.result;
+      await Storage.set({
+        key: 'baskets',
+        value: JSON.stringify(res.result)
+      });
     });
   }
 

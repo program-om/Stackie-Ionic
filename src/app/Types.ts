@@ -32,3 +32,7 @@ export interface UserInfo {
 export interface Resp<T> {
     result: T;
 }
+
+export interface BasketQuestions {
+    questions: Question[];
+}

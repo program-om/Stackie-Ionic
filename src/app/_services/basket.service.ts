@@ -20,8 +20,6 @@ export class BasketService {
   private reorderBasketQuestionsUrl = "https://stackie.herokuapp.com/api/baskets/";
   private reorderBasketUrl = "https://stackie.herokuapp.com/api/baskets/reorder";
 
-  greeting = "hi";
-
 
   constructor(private http: HttpClient) { }
 

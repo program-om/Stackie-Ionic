@@ -5,7 +5,7 @@
 </div>
 <div *ngIf="basketsReceived">
   <ion-reorder-group #reorder [disabled]="!reorderList">
-    <ion-item *ngFor="let basket of baskets" >
+    <ion-item *ngFor="let basket of baskets">
       <app-basket
         [basket]="basket">
       </app-basket>

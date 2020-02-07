@@ -6,6 +6,10 @@ import { PopoverController, ToastController } from '@ionic/angular';
 import { PopoverComponent } from './popover/popover.component';
 import { CommunicationService } from './communication.service';
 import { AlertController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+import { LocalStorageService } from '../_services/local-storage.service';
+
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-basket',
@@ -27,22 +31,26 @@ export class BasketPage implements OnInit, OnDestroy {
               private popoverController: PopoverController,
               private communicationService: CommunicationService,
               private toastController: ToastController,
-              private alertController: AlertController) { }
+              private alertController: AlertController,
+              private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.basket.name = '';
       this.basketId = params.get('id');
-      this.basketService.getBasketQuestions(this.basketId)
-      .subscribe(res => {
-        this.basketInfo();
-        this.basketQuestions = res;
-        this.questionsReceived = true;
+      this.localStorageService.getBasketQuestions(this.basketId)
+      .then( val => {
+        this.basketQuestions = val;
+        if (!this.basketQuestions) {
+          this.getBasketQuestions();
+        } else {
+          this.questionsReceived = true;
+        }
       });
     });
     this.communicationService.newQuestionId
     .subscribe( (questionId: string) => {
-      let index = this.selectedQuestions.indexOf(questionId);
+      const index = this.selectedQuestions.indexOf(questionId);
       if (index >= 0) {
         this.selectedQuestions.splice(index, 1);
       } else {
@@ -56,6 +64,21 @@ export class BasketPage implements OnInit, OnDestroy {
       this.popover.dismiss()
       .then( () => { this.popover = null; });
     }
+  }
+
+  getBasketQuestions() {
+    this.basketService.getBasketQuestions(this.basketId)
+    .subscribe(res => {
+      this.basketInfo();
+      this.basketQuestions = res;
+      this.questionsReceived = true;
+      Storage.get({key: 'basketsQuestions'})
+      .then( async ret => {
+        let basketsQuestions = JSON.parse(ret.value);
+        basketsQuestions.push({id: this.basketId, questions: this.basketQuestions});
+        await Storage.set({ key: 'basketsQuestions', value: JSON.stringify(basketsQuestions)});
+      });
+    });
   }
 
   goToQuestion(qId) {

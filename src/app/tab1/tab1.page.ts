@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggedInService } from '../_services/logged-in.service';
 import { CommunicationService } from './communication.service';
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-tab1',
@@ -19,6 +22,11 @@ export class Tab1Page implements OnInit {
     this.loggedInService.loggedIn
     .subscribe( val => {
       this.loggedIn = val;
+    });
+    Storage.get({key: 'basketsQuestions'}).then( ret => {
+      if (!ret.value) {
+        Storage.set({key: 'basketsQuestions', value: '[]'}).then().catch(e => console.log(e));
+      }
     });
   }
 
