@@ -1,8 +1,6 @@
 # Stackie-Ionic
 Stackie is a hybrid application that allow users to save Stackoverflow questions and answers.
 
-<span style="display:flex;">
-  <img style="width:25%;padding: 5px;" src="./screenshots/1.png">
-  <img style="width:25%;padding: 5px;" src="./screenshots/2.png">
-  <img style="width:25%;padding: 5px;" src="./screenshots/3.png">
-</span>
+Screenshot 1             |  Screenshot 2	|  Screenshot 3
+:-------------------------:|:-------------------------:|:-------------------------:
+![](./screenshots/1.png)  |  ![](./screenshots/2.png)  | ![](./screenshots/2.png)
